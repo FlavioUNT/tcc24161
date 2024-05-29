@@ -1,0 +1,19 @@
+//Medidas del sitio
+$website-width: 1280px;
+
+//Colores
+$color-primary: #ffbc00;
+$color-secondary: #f4F4F4;
+$color-tertiary: #CCC;
+$color-dark: #333;
+$color-aux:#fff;
+$backg-img: url('../images/principal.jpg');
+
+//Color de texto
+// @function set-text-color($color){
+//     @if(lightness($color)>50){
+//         @return #fff;
+//     }@else{
+//         @return #333;
+//     }
+//}

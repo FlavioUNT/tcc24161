@@ -1,0 +1,125 @@
+@use 'variables' as v;
+
+.container{
+    //border: 1px solid blue;
+    max-width: v.$website-width;
+    padding: 0 1.5rem;
+    margin: auto;
+    overflow: hidden;
+}
+
+%btn-general{
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    transition: all 0.5s;
+    border: none;
+    cursor: pointer;
+    }
+
+.btn__light{
+    @extend %btn-general;
+    color: #333;
+    background: v.$color-primary;
+    border-radius: 50px;
+    margin-top: 5px
+
+}
+.btn__main{
+    @extend %btn-general;
+    color: #333;
+    background: v.$color-secondary;
+    border-radius: 50px;
+
+}
+.btn__dark{
+    @extend %btn-general;
+    color: #f4f4f4;
+    background: v.$color-dark;
+    border-radius: 50px;
+
+}
+
+button[class^="btn__"]:hover,
+a[class^="btn__"]:hover,
+input[class^="btn__"]:hover{
+    background: rgb(107, 79, 3);
+    color: #faf8f8;
+}
+
+.lead{
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+.text__center{
+    text-align: center;
+}
+
+// margenes internos gral.
+.py{
+    &-1{
+        padding: 1rem 0;
+    }
+    &-2{
+        padding: 2rem 0;
+    }
+    &-3{
+        padding: 3rem 0;
+    }
+    &-4{
+        padding: 4rem 0;
+    }
+}
+// margenes externos gral.
+.my{
+    &-1{
+        margin: 1rem 0;
+    }
+    &-2{
+        margin: 2rem 0;
+    }
+    &-3{
+       margin: 3rem 0;
+    }
+    &-4{
+        margin:  4rem 0;
+    }
+}
+
+//Fondos
+.bg{
+    &-main{
+        background: v.$color-primary;
+        color: v.$color-primary;
+    }
+    &-light{
+        background: v.$color-tertiary;
+        color: v.$color-dark;
+    }
+    &-dark{
+        background: v.$color-dark;
+        color: v.$color-aux;
+    }
+    &-secondary{
+        background: v.$color-secondary;
+        color: v.$color-secondary;
+    }
+}
+
+// linea horizontal
+.seccion__title{
+    font-size: 2rem;
+    display: block;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+
+}
+
+.bottom__line{
+    height: 2px;
+    width: 3rem;
+    background: v.$color-primary;
+    display: block;
+    margin: 0 auto 1rem auto;
+}

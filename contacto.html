@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Codo a Coco 2024</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://kit.fontawesome.com/3c09560b14.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="./js/validacion.js"></script>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header class="header__inner">
+        <div class="container">
+            <nav id="main-nav">
+                <img src="./images/logo.png" alt="logo" id="logo">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="lugares.html">Lugares</a></li>
+                    <li><a href="contacto.html" class="current">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <!-- Seccion -->
+        <section id="contact-a" class="text__center py-3">
+            <div class="container">
+                <h2 class="section__title">Contáctanos</h2>
+                <div class="bottom__line"></div>
+                <p class="lead">Ya sea que tengas preguntas o estés listo para reservar, no dudes en ponerte en contacto con nosotros</p>
+
+                <form id="contactForm">
+                    <div class="text-fields">
+                        <input type="text" class="text-input name-input" placeholder="Nombre" name="name">
+                        <input type="text" class="text-input subject-input" placeholder="Asunto" name="subject">
+                        <input type="email" class="text-input email-input" placeholder="Correo Eléctrónico" name="email">
+                        <input type="text" class="text-input phone-input" placeholder="Número de Teléfono" name="phone">
+                        <select name="reason" class="text-input select-input">
+                            <option value="">Seleccione una razón</option>
+                            <option value="consulta">Consultas</option>
+                            <option value="soporte"> Viajes</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                        <textarea name="message" class="text-input message-input" placeholder="Mensaje"></textarea>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="subscribe" name="subscribe">
+                            <label for="subscribe">Suscribirse a nuestro boletín</label>
+                        </div>
+                        <div class="file-group">
+                            <label for="attachment">Adjuntar archivo:</label>
+                            <input type="file" id="attachment" name="attachment" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn__dark">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección B -->
+        <section id="contact-b" class="py-3 bg-dark">
+            <div class="container">
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-envelope fa-2x"></i>
+                        <h3>Email</h3>
+                        <p>grupo22@codoacodo.com</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-phone fa-2x"></i>
+                        <h3>Teléfono</h3>
+                        <p>(54) 44742764</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-address-card fa-2x"></i>
+                        <h3>Dirección</h3>
+                        <p>Calle 24 # 13-89 La Plata-Argentina</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección C -->
+        <section id="contact-c" class="bg-main py-4">
+            <div class="container">
+                <h1>Inicia tu Próximo Viaje</h1>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main--footer">
+        <div class="main--footer__content container">
+            <p>Copyright © 2024. Todos los Derechos Reservados Comisión 24161 Grupo 22</p>
+            <div class="social">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

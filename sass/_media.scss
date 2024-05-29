@@ -1,0 +1,176 @@
+@use 'variables' as v;
+@use 'gallery_item';
+
+//Taletas y dispositivos moviles
+@media (max-width:800px){
+    .header__home{
+        height: 30rem;
+    }
+
+    .header__content{
+        padding-top: 2rem;
+    }
+}
+// pequeños
+@media (max-width:500px){
+    #main-nav{
+        flex-direction: column;
+        align-items: center;
+
+        li{
+            padding: 1rem;
+        }
+    }
+
+    .header__home{
+        height: 10rem;
+        border-bottom: 3px solid v.$color-primary;
+        background-position: 20% 30%;
+    }
+    .header__content{
+        display: none;
+    }
+    .header__inner{
+        height: 10rem;
+    }
+
+    // cambiar css grid a una columna
+
+    #inicio-a .specials,
+    #inicio-b .stats,
+    #inicio-c .process,
+    .items,
+    #contact-a ,
+    #contact-b .contact-info {
+        grid-template-columns: 1fr;
+    }
+
+    #inicio{
+        &-a{
+            .specials div{
+                border-bottom: 1px solid v.$color-primary;
+                padding: 0.5rem;
+                &:last-child{
+                    border: none;
+                    padding-bottom: 0;
+                }
+            }
+
+        }
+
+        &-b{
+            .stats li{
+               div{
+                    padding: 2rem 0 1 rem 0;
+               }
+            }
+        }
+    }
+
+
+//Resteo
+    // .seccion__title {
+    //     //display: none;
+    // }
+    // .bottom__line{
+    //     display: none;
+    // }
+
+//Nosotros
+.about-c .testimonials{
+    //display: none;
+    //border: 1px solid red;
+    grid-template-columns: 1fr;
+ 
+ }
+
+ .about{
+
+    &-a{
+        .about-info{
+            //border: 1px solid red;
+            grid-template-areas:'bioimage'
+            'bio'
+            'aw1'
+            'aw2'
+            'aw3'
+            ;
+        }
+    }
+
+    &-b{
+        .about__content{
+            //border: 1px solid red;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 1rem;
+            div{
+                padding: 1rem;
+            }
+        }
+    }
+
+    &-c{
+        .about__content{
+            //border: 1px solid red;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 1rem;
+            div{
+                padding: 1rem;
+            }
+        }
+    }
+ 
+ }
+//Contacto
+
+#contact{
+
+    &-a{
+      .text-fields{
+        grid-template-areas: 
+        'name'
+        'subject'
+        'email'
+        'phone'
+        'message';
+      }
+    }
+
+    &-b{
+      div{
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #555;
+
+        &:last-child{
+          border: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    &-c{
+      h1{
+        font-size: 2rem;
+      }
+    }
+
+  }
+
+
+
+// Pie de pagina
+.main--footer{
+    height: 7rem;
+    &__content{
+        //display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        height: 5rem;
+        gap: 5px;
+        }  
+    }
+}
