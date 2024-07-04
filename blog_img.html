@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Codo a Coco 2024</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://kit.fontawesome.com/3c09560b14.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="./js/validacion.js"></script>
+    <style>
+        /* Nuevos estilos para el iframe responsivo */
+        main {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 100px - 60px); /* Ajusta estos valores según las alturas reales de tu header y footer */
+            overflow: hidden;
+        }
+
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                height: calc(100vh - 80px - 50px); /* Ajusta para móviles si es necesario */
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- Cabecera -->
+   <header class="header__inner">
+    <div class="container">
+        <nav id="main-nav">
+            <img src="./images/logo.png" alt="logo" id="logo">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="lugares.html">Lugares</a></li>
+                <li><a href="blog_img.html" class="current">Blog</a></li>
+                <li><a href="contacto.html" >Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+    <main>
+        <iframe src="https://flaviount.pythonanywhere.com/" frameborder="0" class="responsive-iframe" title="Flavio Unt's Blog"></iframe>
+    </main>
+    <footer class="main--footer">
+        <div class="main--footer__content container">
+            <p>Copyright © 2024. Todos los Derechos Reservados Comisión 24161 Grupo 22</p>
+            <div class="social">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
