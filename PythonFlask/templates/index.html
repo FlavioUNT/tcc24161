@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Codo a Codo - Python y Flask</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<div style="margin-top:30px" class="ui container">
+
+    <div class="ui segment">
+        <h1 class="ui center aligned header"> Lugares Turísticos </h1>
+        <h4 class="ui center aligned header"> Embárcate en un viaje por los rincones más fascinantes del planeta. Descubre y comparte las maravillas del mundo a través de historias, consejos y experiencias únicas que te inspirarán a explorar nuevos destinos. </h4>
+    </div>
+
+    <form id="lugarForm" class="ui form" action="/add" method="POST">
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div class="field">
+                    <a class="ui orange ribbon label big header" for="title"><i class="pencil alternate icon"></i> Nombre del Lugar</a>
+                    <input type="text" id="frase" name="title" placeholder="Ingresa el nombre del lugar...">
+                </div>
+            </div>
+            <div class="eight wide column">
+                <div class="field">
+                    <a class="ui orange ribbon label big header" for="title"><i class="globe icon"></i> URL de la imagen</a>
+                    <input type="text" id="image_url" name="image_url" placeholder="Ingresa la URL de la imagen..">
+                </div>
+            </div>
+            <div class="sixteen wide column">
+                <button class="ui blue button" type="submit">Agregar</button>
+            </div>
+        </div>
+    </form>
+
+    {% for frase in new_frase %}
+    <div class="ui stackable grid">
+        <div class="sixteen wide column">
+            <div class="ui segment">
+                <div class="ui grid">
+                    <div class="sixteen wide column">
+                        <p class="ui big header">{{ frase.id }} | {{ frase.title }}</p>
+                    </div>
+                    {% if frase.image_url %}
+                        <div class="sixteen wide column" style="text-align: center;">
+                            <div class="ui centered image" style="display: flex; justify-content: center;">
+                                <img src="{{ frase.image_url }}" alt="Imagen de {{ frase.title }}" style="max-width: 100%; height: auto; max-height: 400px;">
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="sixteen wide column" style="text-align: center;">
+                        {% if frase.complete == False %}
+                            <span class="ui gray label">Sin visitar</span>
+                        {% else %}
+                            <span class="ui green label">Visitada</span>
+                        {% endif %}
+                        <a class="ui blue button" href="/update/{{ frase.id }}">Actualizar</a>
+                        <a class="ui red button" href="/delete/{{ frase.id }}">Eliminar</a>
+                    </div>
+                    <div class="sixteen wide column">
+                        <div class="ui comments" id="comments-{{ frase.id }}">
+                            <h3 class="ui dividing header">Comentarios</h3>
+                            {% for comment in frase.comments %}
+                            <div class="comment" id="comment-{{ comment.id }}">
+                                <div class="content">
+                                    <a class="author">{{ comment.user_name }}</a>
+                                    <div class="metadata">
+                                        <span class="date">{{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                                    </div>
+                                    <div class="text">
+                                        {{ comment.content }}
+                                    </div>
+                                    <div class="actions">
+                                        <a class="edit-comment" data-id="{{ comment.id }}">Editar</a>
+                                        <a class="delete-comment" data-id="{{ comment.id }}">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <form class="ui reply form add-comment-form" data-frase-id="{{ frase.id }}">
+                            <div class="field">
+                                <input type="text" name="user_name" placeholder="Tu nombre">
+                            </div>
+                            <div class="field">
+                                <textarea name="content" placeholder="Escribe un comentario..."></textarea>
+                            </div>
+                            <button class="ui blue labeled submit icon button" type="submit">
+                                <i class="icon edit"></i> Agregar comentario
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('lugarForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('frase').value.trim();
+        const imageUrl = document.getElementById('image_url').value.trim();
+        
+        if (title === '' || imageUrl === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos vacíos',
+                text: 'Por favor, rellene todos los campos.',
+            });
+        } else {
+            fetch('/add', {
+                method: 'POST',
+                body: new FormData(form),
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'El lugar ha sido agregado correctamente.',
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al agregar el lugar.',
+                    });
+                }
+            });
+        }
+    });
+
+    document.querySelectorAll('.add-comment-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fraseId = this.getAttribute('data-frase-id');
+            const userName = this.querySelector('input[name="user_name"]').value.trim();
+            const content = this.querySelector('textarea[name="content"]').value.trim();
+            
+            if (userName === '' || content === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campos vacíos',
+                    text: 'Por favor, rellene todos los campos.',
+                });
+            } else {
+                fetch(`/add_comment/${fraseId}`, {
+                    method: 'POST',
+                    body: new FormData(this),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const commentSection = document.getElementById(`comments-${fraseId}`);
+                        const commentHtml = `
+                            <div class="comment" id="comment-${data.id}">
+                                <div class="content">
+                                    <a class="author">${data.user_name}</a>
+                                    <div class="metadata">
+                                        <span class="date">${data.created_at}</span>
+                                    </div>
+                                    <div class="text">${data.content}</div>
+                                    <div class="actions">
+                                        <a class="edit-comment" data-id="${data.id}">Editar</a>
+                                        <a class="delete-comment" data-id="${data.id}">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        commentSection.insertAdjacentHTML('beforeend', commentHtml);
+                        this.reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Hubo un problema al agregar el comentario.',
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('.edit-comment').forEach(button => {
+        button.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-id');
+            const commentContent = document.querySelector(`#comment-${commentId} .text`).textContent.trim();
+            
+            Swal.fire({
+                title: 'Editar comentario',
+                input: 'textarea',
+                inputValue: commentContent,
+                showCancelButton: true,
+                confirmButtonText: 'Guardar',
+                cancelButtonText: 'Cancelar',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    fetch(`/update_comment/${commentId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `content=${result.value}`,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.querySelector(`#comment-${commentId} .text`).textContent = result.value;
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'El comentario ha sido editado correctamente.',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Hubo un problema al editar el comentario.',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    document.querySelectorAll('.delete-comment').forEach(button => {
+        button.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-id');
+            
+            Swal.fire({
+                title: '¿Eliminar comentario?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    fetch(`/delete_comment/${commentId}`, {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`comment-${commentId}`).remove();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'El comentario ha sido eliminado correctamente.',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Hubo un problema al eliminar el comentario.',
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    });
+});
+</script>
+</body>
+</html>
